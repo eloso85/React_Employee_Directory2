@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useTable, useFilters, useSortBy } from "react-table";
+import * as ReactBootStrap from "react-bootstrap"
 
 export default function Table({ columns, data }) {
   const [filterInput, setFilterInput] = useState("");
@@ -36,7 +37,7 @@ export default function Table({ columns, data }) {
         onChange={handleFilterChange}
         placeholder={"Search name"}
       />
-      <table {...getTableProps()}>
+      <ReactBootStrap.Table {...getTableProps()}>
         <thead>
           {headerGroups.map(headerGroup => (
             <tr {...headerGroup.getHeaderGroupProps()}>
@@ -71,7 +72,7 @@ export default function Table({ columns, data }) {
             );
           })}
         </tbody>
-      </table>
+      </ReactBootStrap.Table>
     </>
   );
 }

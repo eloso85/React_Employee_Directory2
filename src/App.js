@@ -14,7 +14,7 @@ function App() {
         columns: [
           {
             Header: "Image",
-            accessor: "picture.large",
+            accessor: "picture.thumbnail",
             Cell:({cell:{value}})=>{
               return(
                 <>
@@ -37,15 +37,15 @@ function App() {
         Header: "Details",
         columns: [
           {
-            Header: "Language",
-            accessor: "show.language"
+            Header: "Email",
+            accessor: "email"
           },
          
           
             
           {
-            Header: "Status",
-            accessor: "show.status"
+            Header: "Phone",
+            accessor: "cell"
           }
         ]
       }
@@ -58,9 +58,9 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const result = await axios("https://randomuser.me/api/?results=50");
+      const result = await axios("https://randomuser.me/api/?results=5");
       setData(result.data.results);
-      
+      console.log(result)
     })();
   }, []);
 
