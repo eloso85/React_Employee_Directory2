@@ -1,24 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useMemo, useState, useEffect } from "react";
+import axios from "axios";
+
+import Table from "./Table";
+import "./App.css";
+
 
 function App() {
+  const columns = useMemo(
+    
+    () => [
+      {
+        Header: "Employee",
+        columns: [
+          {
+            Header: "Image",
+            accessor: "picture.large",
+            Cell:({cell:{value}})=>{
+              return(
+                <>
+                <img src ={value} alt="profile thumbnail"/>
+                </>
+              )
+            }
+          },
+          {
+            Header: "First Name",
+            accessor: "name.first"
+          },
+          {
+            Header:"Last Name",
+            accessor:"name.last"
+          }
+        ]
+      },
+      {
+        Header: "Details",
+        columns: [
+          {
+            Header: "Language",
+            accessor: "show.language"
+          },
+         
+          
+            
+          {
+            Header: "Status",
+            accessor: "show.status"
+          }
+        ]
+      }
+    ],
+    []
+  );
+  console.log(columns)
+
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    (async () => {
+      const result = await axios("https://randomuser.me/api/?results=50");
+      setData(result.data.results);
+      
+    })();
+  }, []);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Table columns={columns} data={data} />
     </div>
   );
 }
